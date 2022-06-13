@@ -23,22 +23,37 @@
 - Bộ tham số : $\theta$
 
 ## 2. Bài toán hồi quy
-- Hàm giả thuyết:  $ h_\theta (x) = \theta^Tx = \theta_0 + \theta_1x_1 + \theta_2x_2 + ... + \theta_nx_n$
-- Hàm chi phí: $ J(\theta) = \frac{1}{2m}\sum_{i=1}^m(h_\theta(x^i) - y_i)^2$
-- Gradient descent: $ \theta_j := \theta_j - \alpha \frac{\partial}{\partial\theta_j}J(\theta)$
+- Hàm giả thuyết:  
+  - $ h_\theta (x) = \theta^Tx = \theta_0 + \theta_1x_1 + \theta_2x_2 + ... + \theta_nx_n$
+- Hàm chi phí: 
+  - $ J(\theta) = \frac{1}{2m}\sum_{i=1}^m(h_\theta(x^i) - y_i)^2$
+- Gradient descent: 
+  - $ \theta_j := \theta_j - \alpha \frac{\partial}{\partial\theta_j}J(\theta)$
 
 ## 3. Bài toán phân loại
 - Hàm giả thuyết:
   - $ h_\theta(x) = \frac{1}{1+ e^{-\theta^Tx}} $
 - Dự đoán y = 1 nếu $h_\theta(x) \ge 0.5$ và y = 0 nếu $h_\theta(x) \le 0.5$
-- Hàm chi phí: $J(\theta) = \frac{-1}{m} [ \sum_{i=1}^m y^ilogh_\theta(x^i)+ (1-y^i)log(1-h_\theta(x^i))]$
-- Gradient descent: $ \theta_j := \theta_j - \alpha \frac{\partial}{\partial\theta_j}J(\theta) $
-với $\frac{\partial}{\partial\theta_j}J(\theta) = \frac{1}{m}\sum_{i=1}^m(h_\theta(x^i)- y^i)x_j^i$
+- Hàm chi phí: 
+  - $J(\theta) = \frac{-1}{m} [ \sum_{i=1}^m y^ilogh_\theta(x^i)+ (1-y^i)log(1-h_\theta(x^i))]$
+- Gradient descent:
+  - $ \theta_j := \theta_j - \alpha \frac{\partial}{\partial\theta_j}J(\theta) $
+  - với $\frac{\partial}{\partial\theta_j}J(\theta) = \frac{1}{m}\sum_{i=1}^m(h_\theta(x^i)- y^i)x_j^i$
 
 ## 4. Bàn thêm vấn đề nâng cao
-- Ngoài GD thì còn phương pháp nào ?
-- Để thực hiện thuật toán GD tốt hơn cần quan tâm những yếu tố nào ?
-- Vấn đề overfitting + non-linear (polynominal) (để buổi sau bổ sung)
+### 4.1. Những yếu tố cần quan tâm khi thực hiện Gradient descent
+  - Hệ số học $\alpha$ : 
+    - Nếu $\alpha$ quá nhỏ thì thuật toán có thể hội tụ chậm
+    - Nếu $\alpha$ quá lớn thì thuật toán có thể không hội tụ
+  - Số vòng lặp
+  - Mỗi lần lặp cần phải cập nhật đồng thời hệ số $\theta$
+  - Sử dụng phương pháp **`Feature Scaling`** để đảm bảo các đặc trưng có giá trị nắm trong 1 dải tương đồng từ đó có thể giảm thời gian tối thiểu hàm chi phí
+### 4.2. Một số thuật toán khác dùng để tối ưu hàm chí
+  - Conjugate gradient
+  - Sử dụng công thức chuẩn: $\theta = (X^TX)^{-1}X^Ty$
+  - BFGS
+  - L-BFGS
+### 4.3. Vấn đề overfitting + non-linear (polynominal) (để buổi sau bổ sung)
 
 # **II. Các vấn đề hiện đại thuộc học có giám sát**
 (Để buổi sau bổ sung)
