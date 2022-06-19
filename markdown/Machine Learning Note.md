@@ -98,6 +98,18 @@
       - $a^1 = x $
       - $z^n = \theta^{n-1}* a^{n-1} $
       - $a^n = g(z^n)$
+  - Thuật toán lan truyền ngược Backpropagation
+    - $\delta_j^l$ : lỗi của nút j trong layer $l$
+    - Tập huấn luyện: {$(x^1, y^1), (x^2, y^2), ... , (x^m, y^m)$}
+    - Các bước thực hiện:
+      - Set $\Delta_{ij}^l =0$ cho tất cả các giá trị $l, i, j$
+      - Chạy vòng lăp `for i = 1 to m`
+        - chọn $a^1 = x^i$
+        - thực hiện forward propagation để tính $a^l (l=2,3,...,L)$
+        - sử dụng $y^i$ để tính $\delta^L = a^L - y^i$
+        - tính $\delta^{L-1},\delta^{L-2},..., \delta^2 $
+        - cập nhật $\Delta_{ij}^l := \Delta_{ij}^l + a_j^l\delta_i^{l+1}$
+      - $$\frac{\partial}{\partial\Theta_{ij}^l}J(\Theta) = \begin{cases} \frac{1}{m}\Delta_{ij}^l + \lambda\Theta_{ij}^l & nếu j \neq 0 \\ \frac{1}{m}\Delta_{ij}^l & nếu  j = 0 \\ \end{cases} $$
 
 # **II. Các vấn đề hiện đại thuộc học có giám sát**
 (Để buổi sau bổ sung)
