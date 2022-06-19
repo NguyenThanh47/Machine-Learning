@@ -1,3 +1,4 @@
+
 # **I. Các khái niệm ban đầu**
 1. Khái niệm: Một chương trình máy tính được cho là học hỏi từ trải nghiệm E đối với một số loại nhiệm vụ T và thước đo hiệu suất P, nếu hiệu suất của nó ở các nhiệm vụ trong T, được đo bằng P, cải thiện theo trải nghiệm E
 2. Nhiệm vụ T: Hồi quy, Phân loại
@@ -14,8 +15,6 @@
 5. Lưu ý
   - Phân loại dựa vào y
   - Phân cụm dựa vào x
-  - Bias đại diện cho độ lệch tâm
-  - variance đại diện cho độ phân tán
 
 # **II. Các vấn đề kinh điển thuộc học có giám sát**
 ## 1. Các ký hiệu
@@ -56,10 +55,14 @@
   - BFGS
   - L-BFGS
 ### 4.3. Vấn đề overfitting
+  - Một số khái niệm cần chú ý
+    - bias: độ lệch giữa dự đoán và thực tế
+    - variance: độ phân tán giá trị
+  - Mong muốn: low bias và low variance
   - Hiện tượng: hàm giả thuyết quá vừa vặn trên tập huấn luyện nhưng lại có sai số lớn khi dự đoán một mẫu mới không thuộc tập huấn luyện
   - Hướng giải quyết:
-    - Giảm số lượng đặc trưng, giữ lại những đặc trưng quan trọng
-    - Sử dụng phương pháp Regularization
+    - Giảm số lượng đặc trưng, giữ lại những đặc trưng quan trọng, lựa chọn thuật toán khác
+    - Sử dụng phương pháp Regularization để giữ lại tất cả các đặc trưng, giảm giá trị của tham số $\theta$
   #### 4.3.1 Regularization
   - Mục đích sử dụng:
     - Giảm giá trị của các tham số $\theta$
@@ -78,8 +81,23 @@
 
   #### 4.3.2 Non-linear hypotheses
   - Các kí hiệu:
+    - L: tổng số layer
+    - $s_l$: tổng số nút trong layer thứ $l$
     - $a_i^j$: hàm kích hoạt của nốt i trong layer j
     - $\theta^j$: ma trận trọng số từ layer j đến layer $j_{i+1}$
+  - Mô hình
+    ![neural](neural.png)
+  - Công thức tính hàm kích hoạt $a_i^j$
+    - $a_i^j = g(\theta_{i0}^{j-1}*a_0^{j-1} + \theta_{i1}^{j-1}*a_1^{j-1} + ... + \theta_{is_{j-1}}^{j-1}*a_{s_{j-1}}^{j-1})$
+      - trong đó $s_{j-1}$ là tổng số nút của layer thứ $j-1$
+    - ví dụ: 
+      - $a_1^3 = g(\theta_{10}^{2}*a_0^{2} + \theta_{11}^{2}*a_1^{2}  + \theta_{12}^{2}*a_2^{2} + \theta_{13}^{2}*a_3^{2})$ 
+  - Thuật toán lan truyền thuận Forward propagation
+    - công thức:
+      - $a^0 = 1 $
+      - $a^1 = x $
+      - $z^n = \theta^{n-1}* a^{n-1} $
+      - $a^n = g(z^n)$
 
 # **II. Các vấn đề hiện đại thuộc học có giám sát**
 (Để buổi sau bổ sung)
