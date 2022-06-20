@@ -24,18 +24,18 @@
 - Bộ tham số : $\theta$
 
 ## 2. Bài toán hồi quy
-- Hàm giả thuyết:  
+- Hàm giả thuyết:
   - $ h_\theta (x) = \theta^Tx = \theta_0 + \theta_1x_1 + \theta_2x_2 + ... + \theta_nx_n$
-- Hàm chi phí: 
+- Hàm chi phí:
   - $ J(\theta) = \frac{1}{2m}\sum_{i=1}^m(h_\theta(x^i) - y_i)^2$
-- Gradient descent: 
+- Gradient descent:
   - $ \theta_j := \theta_j - \alpha \frac{\partial}{\partial\theta_j}J(\theta)$
 
 ## 3. Bài toán phân loại
 - Hàm giả thuyết:
   - $ h_\theta(x) = \frac{1}{1+ e^{-\theta^Tx}} $
 - Dự đoán y = 1 nếu $h_\theta(x) \ge 0.5$ và y = 0 nếu $h_\theta(x) \le 0.5$
-- Hàm chi phí: 
+- Hàm chi phí:
   - $J(\theta) = \frac{-1}{m} [\sum_{i=1}^m y^ilogh_\theta(x^i)+ (1-y^i)log(1-h_\theta(x^i))]$
 - Gradient descent:
   - $ \theta_j := \theta_j - \alpha \frac{\partial}{\partial\theta_j}J(\theta) $
@@ -43,7 +43,7 @@
 
 ## 4. Bàn thêm vấn đề nâng cao
 ### 4.1. Những yếu tố cần quan tâm khi thực hiện Gradient descent
-  - Hệ số học $\alpha$ : 
+  - Hệ số học $\alpha$ :
     - Nếu $\alpha$ quá nhỏ thì thuật toán có thể hội tụ chậm
     - Nếu $\alpha$ quá lớn thì thuật toán có thể không hội tụ
   - Số vòng lặp iter
@@ -68,7 +68,7 @@
     - Giảm giá trị của các tham số $\theta$
     - Đơn giản hóa hàm giả thuyết
     - Giảm hiện tượng overfitting
-  - Bài toán hồi quy: 
+  - Bài toán hồi quy:
     - Hàm chi phí: $J(\theta) = \frac{1}{2m}[\sum_{i=1}^m(h_\theta(x^i) - y_i)^2 + \lambda\sum_{j=1}^n \theta_j^2] $
     - Gradient descent: $ \theta_j := \theta_j(1 - \alpha \frac{\lambda}{m}) -\alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^i)- y^i)x_j^i$
   - Bài toán phân loại
@@ -79,37 +79,22 @@
     - nếu $\lambda$ quá lớn sẽ gây hiện tượng underfitting
     - nếu $\lambda$ quá nhỏ sẽ gây hiện tượng overfitting
 
-  #### 4.3.2 Non-linear hypotheses
-  - Các kí hiệu:
-    - L: tổng số layer
-    - $s_l$: tổng số nút trong layer thứ $l$
-    - $a_i^j$: hàm kích hoạt của nốt i trong layer j
-    - $\theta^j$: ma trận trọng số từ layer j đến layer $j_{i+1}$
-  - Mô hình
-    ![neural](neural.png)
-  - Công thức tính hàm kích hoạt $a_i^j$
-    - $a_i^j = g(\theta_{i0}^{j-1}*a_0^{j-1} + \theta_{i1}^{j-1}*a_1^{j-1} + ... + \theta_{is_{j-1}}^{j-1}*a_{s_{j-1}}^{j-1})$
-      - trong đó $s_{j-1}$ là tổng số nút của layer thứ $j-1$
-    - ví dụ: 
-      - $a_1^3 = g(\theta_{10}^{2}*a_0^{2} + \theta_{11}^{2}*a_1^{2}  + \theta_{12}^{2}*a_2^{2} + \theta_{13}^{2}*a_3^{2})$ 
-  - Thuật toán lan truyền thuận Forward propagation
-    - công thức:
-      - $a^0 = 1 $
-      - $a^1 = x $
-      - $z^n = \theta^{n-1}* a^{n-1} $
-      - $a^n = g(z^n)$
-  - Thuật toán lan truyền ngược Backpropagation
-    - $\delta_j^l$ : lỗi của nút j trong layer $l$
-    - Tập huấn luyện: {$(x^1, y^1), (x^2, y^2), ... , (x^m, y^m)$}
-    - Các bước thực hiện:
-      - Set $\Delta_{ij}^l =0$ cho tất cả các giá trị $l, i, j$
-      - Chạy vòng lăp `for i = 1 to m`
-        - chọn $a^1 = x^i$
-        - thực hiện forward propagation để tính $a^l (l=2,3,...,L)$
-        - sử dụng $y^i$ để tính $\delta^L = a^L - y^i$
-        - tính $\delta^{L-1},\delta^{L-2},..., \delta^2 $
-        - cập nhật $\Delta_{ij}^l := \Delta_{ij}^l + a_j^l\delta_i^{l+1}$
-      - $$\frac{\partial}{\partial\Theta_{ij}^l}J(\Theta) = \begin{cases} \frac{1}{m}\Delta_{ij}^l + \lambda\Theta_{ij}^l & nếu j \neq 0 \\ \frac{1}{m}\Delta_{ij}^l & nếu  j = 0 \\ \end{cases} $$
+  #### 4.3.2 Non-linear
+  - Đây là vấn đề mở rộng của bài toán hồi quy tuyến tính với đặc tính đầu ra bám theo 1 đường tuyền tính => hồi quy phi tuyến với đặc tính đầu ra bám theo đường phi tuyến và bài toán hồi quy logistic (phân loại nhị phân) với đường phân chia tuyến tính => bài toán phân loại nhị phân với đường phân chia phi tuyến. Phần này em có thể tổng kết ngắn gọn trong 2-3 gạch đầu dòng.
+
 
 # **II. Các vấn đề hiện đại thuộc học có giám sát**
-(Để buổi sau bổ sung)
+- Phần NN là vấn đề hiện đại em chuyển xuống đây. Em nêu 1 số ý anh gợi mở như sau để mình nhớ lâu và đi vào bản chất
+  - Tại sao cần thiết phải mô tả bài toán với dạng mô hình mới so với mô hình kinh điển (hàm giả thuyết) trong thế giới hiện đại ngày nay.
+  - Tại sao vấn đề này đã được nghiên cứu những giữa những năm thế kỷ trước giờ lại nở rộ thành trào lưu như hầu như bài toán nào cũng ném vào deep learning
+  - Mô tả mô hình NN
+  - Mục tiêu tối ưu với mô hình mới NN là gì
+  - Cách triển khai thuận và nghich phục vụ cho quá trình tối ưu (quá trình học) diễn ra ntn
+- Vấn đề hiện đại tiếp theo là phương pháp SVM
+  - Nó là phương pháp tiên tiến phục vụ cho bài toán phân loại vậy ưu điểm nó là gì ? sao giờ mới nghĩ đến nó?
+  - Triết lý SVM là gì cách giải quyết nó ra sao nêu các bước ? (đặc biệt là giải quyết tốt bài toán phân loại với đường phân chia phi tuyến)
+
+# **III. Giải quyết các bài toán ML có giám sát**
+- Định hướng khi giải quyết bài toán ML gặp phải (nêu ra thuộc bài 10)
+- Khi định hướng rồi bắt tay vào làm cần chú ý gì khi thiết kế (nêu ra thuộc bài 11)
+
