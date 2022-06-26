@@ -24,18 +24,18 @@
 - Bộ tham số : $\theta$
 
 ## 2. Bài toán hồi quy
-- Hàm giả thuyết:
+- Hàm giả thuyết:  
   - $ h_\theta (x) = \theta^Tx = \theta_0 + \theta_1x_1 + \theta_2x_2 + ... + \theta_nx_n$
-- Hàm chi phí:
+- Hàm chi phí: 
   - $ J(\theta) = \frac{1}{2m}\sum_{i=1}^m(h_\theta(x^i) - y_i)^2$
-- Gradient descent:
+- Gradient descent: 
   - $ \theta_j := \theta_j - \alpha \frac{\partial}{\partial\theta_j}J(\theta)$
 
 ## 3. Bài toán phân loại
 - Hàm giả thuyết:
   - $ h_\theta(x) = \frac{1}{1+ e^{-\theta^Tx}} $
 - Dự đoán y = 1 nếu $h_\theta(x) \ge 0.5$ và y = 0 nếu $h_\theta(x) \le 0.5$
-- Hàm chi phí:
+- Hàm chi phí: 
   - $J(\theta) = \frac{-1}{m} [\sum_{i=1}^m y^ilogh_\theta(x^i)+ (1-y^i)log(1-h_\theta(x^i))]$
 - Gradient descent:
   - $ \theta_j := \theta_j - \alpha \frac{\partial}{\partial\theta_j}J(\theta) $
@@ -43,7 +43,7 @@
 
 ## 4. Bàn thêm vấn đề nâng cao
 ### 4.1. Những yếu tố cần quan tâm khi thực hiện Gradient descent
-  - Hệ số học $\alpha$ :
+  - Hệ số học $\alpha$ : 
     - Nếu $\alpha$ quá nhỏ thì thuật toán có thể hội tụ chậm
     - Nếu $\alpha$ quá lớn thì thuật toán có thể không hội tụ
   - Số vòng lặp iter
@@ -68,7 +68,7 @@
     - Giảm giá trị của các tham số $\theta$
     - Đơn giản hóa hàm giả thuyết
     - Giảm hiện tượng overfitting
-  - Bài toán hồi quy:
+  - Bài toán hồi quy: 
     - Hàm chi phí: $J(\theta) = \frac{1}{2m}[\sum_{i=1}^m(h_\theta(x^i) - y_i)^2 + \lambda\sum_{j=1}^n \theta_j^2] $
     - Gradient descent: $ \theta_j := \theta_j(1 - \alpha \frac{\lambda}{m}) -\alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^i)- y^i)x_j^i$
   - Bài toán phân loại
@@ -79,22 +79,42 @@
     - nếu $\lambda$ quá lớn sẽ gây hiện tượng underfitting
     - nếu $\lambda$ quá nhỏ sẽ gây hiện tượng overfitting
 
-  #### 4.3.2 Non-linear
-  - Đây là vấn đề mở rộng của bài toán hồi quy tuyến tính với đặc tính đầu ra bám theo 1 đường tuyền tính => hồi quy phi tuyến với đặc tính đầu ra bám theo đường phi tuyến và bài toán hồi quy logistic (phân loại nhị phân) với đường phân chia tuyến tính => bài toán phân loại nhị phân với đường phân chia phi tuyến. Phần này em có thể tổng kết ngắn gọn trong 2-3 gạch đầu dòng.
-
+  #### 4.3.2 Non-linear hypotheses
+  - Đây là vấn đề mở rộng của bài toán hồi quy tuyến tính với đặc tính đầu ra bám theo 1 đường tuyền tính => hồi quy phi tuyến với đặc tính đầu ra bám theo đường phi tuyến và bài toán hồi quy logistic (phân loại nhị phân) với đường phân chia tuyến tính => bài toán phân loại nhị phân với đường phân chia phi tuyến.
+  - Tùy thuộc và dữ liệu mà chúng ta gặp trong một bài toán cụ thể, thay vì sử dụng những đặc trưng ban đầu thì đôi lúc định nghĩa những đặc trưng mới có thể giúp chúng ta có được một mô hình mới tốt hơn. Một ý tưởng liên quan mật thiết với ý tưởng này đó là hồi quy đa thức **`Polynomial regression`**.
+  - Ví dụ khi dữ liệu bài toán không phân bố  theo một đường tuyến tính, việc sử dụng mô hình hồi quy phi tuyến sẽ cho kết quả đầu ra của mô hình tốt hơn khi sử dụng mô hình hồi quy tuyến tính.
 
 # **II. Các vấn đề hiện đại thuộc học có giám sát**
-- Phần NN là vấn đề hiện đại em chuyển xuống đây. Em nêu 1 số ý anh gợi mở như sau để mình nhớ lâu và đi vào bản chất
-  - Tại sao cần thiết phải mô tả bài toán với dạng mô hình mới so với mô hình kinh điển (hàm giả thuyết) trong thế giới hiện đại ngày nay.
-  - Tại sao vấn đề này đã được nghiên cứu những giữa những năm thế kỷ trước giờ lại nở rộ thành trào lưu như hầu như bài toán nào cũng ném vào deep learning
-  - Mô tả mô hình NN
-  - Mục tiêu tối ưu với mô hình mới NN là gì
-  - Cách triển khai thuận và nghich phục vụ cho quá trình tối ưu (quá trình học) diễn ra ntn
-- Vấn đề hiện đại tiếp theo là phương pháp SVM
-  - Nó là phương pháp tiên tiến phục vụ cho bài toán phân loại vậy ưu điểm nó là gì ? sao giờ mới nghĩ đến nó?
-  - Triết lý SVM là gì cách giải quyết nó ra sao nêu các bước ? (đặc biệt là giải quyết tốt bài toán phân loại với đường phân chia phi tuyến)
+## **1. Neural Network**
+- Phương pháp hồi quy logistic hoạt động tốt khi số lượng đặc trưng nhỏ, còn trong thực tế một bài toán ML sẽ có rất nhiều đặc trưng. Để có thể có được một hàm giả thuyết phân chia các mẫu hợp lý thì cần sử dụng rất nhiều đặc trưng phi tuyến, sử dụng hàm đa thức bậc cao. Nếu sử dụng hết các đặc trưng phi tuyến hoặc bậc của đa thức quá cao sẽ dẫn đến hiện tượng overfitting và tốn  nhiều chi phí tính toán
+- Neural network là một thuật toán đã được nghiên cứu từ lâu nhưng gần đây mới trở nên phổ biến bởi nó là một thuật toán cần chi phí tính toán lớn và chỉ có thể chạy tốt với những máy tính hiện đại ngày nay.
 
-# **III. Giải quyết các bài toán ML có giám sát**
-- Định hướng khi giải quyết bài toán ML gặp phải (nêu ra thuộc bài 10)
-- Khi định hướng rồi bắt tay vào làm cần chú ý gì khi thiết kế (nêu ra thuộc bài 11)
+- Mô hình
+  - Một mô hình sẽ bao gồm những phần sau:
+    - Dữ liệu đầu vào: `input layer` => **x**
+    - Lớp ẩn: `hidden layer`
+    - Dữ liệu đầu ra: `output layer` => **y**
+    ![neural](neural.png)
+
+- Mục tiêu: tối ưu hàm chi phí để tìm ra mô hình tốt nhất
+- Thuật toán lan truyền tiến: tìm ra hàm giả thuyết $h_\theta(x)$
+  ![forward](forward.png)
+- Thuật toán lan truyền ngược: tính ra $\frac{\partial}{\partial\theta_j}J(\theta)$ phục vụ cho `gradient descent`
+  ![back](back.png)
+
+- Các bước thực hiện khi huấn luyện một neural network:
+  - khởi tạo ngẫu nhiên giá trị của trọng số $\theta$
+  - sử dụng lan truyền tiến tìm ra hàm giả thuyết
+  - tính toán hàm chi phí $J(\theta)$
+  - sử dụng lan truyền ngược để tính $\frac{\partial}{\partial\theta_j}J(\theta)$
+  - sử dụng gradient checking để kiểm tra $\frac{\partial}{\partial\theta_j}J(\theta)$
+  - tắt gradient checking và sử dụng một thuật toán tối ưu để tối thiểu hàm chi phí.
+
+## **2. Phương pháp SVM**
+- Mục tiêu: giải quyết bài toán phân loại
+- Ưu điểm: hàm giả thuyết đơn giản hơn do mô hình xấp xỉ 2 đường thẳng => hàm chi phí đơn giản
+- bản chất: tìm đường phân chia sao cho margin lớn nhất
+- giải quyết bài toán phân chia với đường bao phi tuyến
+- landmark, kernel, hàm tương ứng
+
 
