@@ -111,10 +111,66 @@
   - tắt gradient checking và sử dụng một thuật toán tối ưu để tối thiểu hàm chi phí.
 
 ## **2. Phương pháp SVM**
-- Mục tiêu: giải quyết bài toán phân loại
+- Mục tiêu: giải quyết bài toán phân loại với đường bao phi tuyến
 - Ưu điểm: hàm giả thuyết đơn giản hơn do mô hình xấp xỉ 2 đường thẳng => hàm chi phí đơn giản
-- bản chất: tìm đường phân chia sao cho margin lớn nhất
-- giải quyết bài toán phân chia với đường bao phi tuyến
-- landmark, kernel, hàm tương ứng
+- Bản chất: tìm đường phân chia sao cho margin lớn nhất
+- Hàm chi phí: với $ C \approx \frac{1}{\lambda}$
+![cost](costfunction.png)
+- Các bước thực hiện
+  - Biến đổi các đặc trưng ban đầu $x$ thành một đặc trưng mới $f$ thông qua các điểm `landmarks`: $l^{(1)}, l^{(2)},...., l^{(n)}$
+  - Chọn $l^{(1)} = x^{(1)}; l^{(2)}= x^{(2)};....; l^{(n)}= x^{(n)}$
+  - Lựa chọn `Kernels` để tìm $f$ 
+  - Hàm chi phí sau biến đổi
+    ![Kernel](kernels.png)
+  - Các tham số của SVM
+    ![parameter](parameter.png)
+- Lưu ý khi triển khai:
+  - Cần chọn tham số $C$
+  - Cần chọn `Kernels`: linear kernel, gaussian kernel, polynomial kernel,....
+  - Cần chọn $\sigma^2$
+- Lựa chọn thuật toán: Logistic regression vs Support Vector Machine
+  ![selection](selection.png)
+  
 
+# **III. Giải quyết các bài toán ML có giám sát**
+## **1. Định hướng**
+- Để xây dựng được một mô hình tốt, ta cần chia dữ liệu làm 3 phần: tập huấn luyện, tập kiểm thử và tập kiểm tra. Các dữ liệu trong 3 tập này cần được chọn lựa ngẫu nhiên và dữ liệu trong tập huấn luyện là nhiều nhất.
+- Quy trình xây dựng như sau:
+  - sử dụng dữ liệu trong tập train => tối thiểu hàm chi phí => lựa mô hình có giá trị hàm chi phí nhỏ nhất
+  - sử dụng mô hình đã chọn trong tập train để đánh giá lỗi trên tập kiểm thử => lựa chọn mô hình có giá trị hàm chi phí nhỏ nhất
+- Chuẩn đoán bias và variance
+  - Khi bậc đa thức của mô hình nhỏ => $J(\theta)_{train}$ và $J(\theta)_{cv}$ đều lớn (underfit)
+  - Khi bậc đa thức của mô hình tăng dần => $J(\theta)_{train}$ và $J(\theta)_{cv}$ đều giảm dần
+  - Khi bậc đa thức lớn => $J(\theta)_{train}$ tiếp tục giảm còn $J(\theta)_{cv}$ tăng (overfit)
+  ![diagnos](diagnosing.png)
+- Hệ số regularization và bias/variance
+  - Khi $\lambda$ nhỏ, mô hình có khả năng bị overfit => $J(\theta)_{train}$ nhỏ, còn $J(\theta)_{cv}$ lớn
+  - Khi $\lambda$ tăng dần => $J(\theta)_{train}$ tăng, còn $J(\theta)_{cv}$ giảm
+  - Khi $\lambda$ nhỏ, mô hình có khả năng bị underfit => $J(\theta)_{train}$ và $J(\theta)_{cv}$ đều lớn
+  ![regularization](regularization.png)
+- Sau khi tìm được mô hình và thấy lỗi trên tập test vẫn lớn thì có một vài phương án xử lý như sau:
+  - Lấy thêm nhiều dữ liệu => sửa lỗi high variance
+  - Làm nhỏ tập dữ liệu => sửa lỗi high variance
+  - Thêm đặc trưng => sửa lỗi high bias
+  - Tăng bậc cho mô hình => sửa lỗi high bias
+  - Giảm hệ số  $\lambda$ => sửa lỗi high bias
+  - Tăng hệ số  $\lambda$ => sửa lỗi high variance
+- Đối với Neural network
+  - Mô hình đơn giản(ít layer ẩn, layer ít nút): chi phí tính toán rẻ nhưng dễ bị underfit
+  - Mô hình phức tạp(nhiều layer ẩn, nhiều nút trong 1 layer): chi phí tính toán lớn, dễ bị over, có thể sử dung $\lambda$ để giảm overfit
+## **2. Lưu ý khi thực hiện**
+### **2.1 Các bước triển khai**
+  - Bắt đầu với một thuật tóan đơn giản và có thể triển khai nhanh chóng
+  - Vẽ đồ thị learning curves để quyết định hướng xử lý tiếp theo
+  - Thực hiện việc phân tích lỗi: kiểm tra thủ công các trường hợp thuật toán mắc lỗi từ đó xác định được xu hướng lỗi và tập trung sửa lỗi theo xu hướng đó.
+### **2.2 Phương pháp đánh giá các mô hình phân loại**
+- Precision(P) và recall(R):
+  - Precision được định nghĩa là tỉ lệ số điểm Positive mô hình dự đoán đúng trên tổng số điểm mô hình dự đoán là Positive. Recall được định nghĩa là tỉ lệ số điểm Positive mô hình dự đoán đúng trên tổng số điểm thật sự là Positive.
+  ![P/R](p%26r.png)
 
+- $F_1$ Score: mong muốn càng cao càng tốt 
+  - $F_1$ Score =  **$2\frac{PR}{P+R}$**
+## **2.3 Vấn đề dữ liệu cho ML** 
+  - Hiệu năng của các thuật toán thường tăng khi tăng số lượng dữ liệu
+  - Sử dụng một thuật toán học với nhiều đặc trưng sẽ làm cho mô hình tránh underfit => $J(\theta)_{train}$ sẽ nhỏ
+  - Sử dụng tập train có lượng dữ liệu lớn sẽ tránh được overfit => $J(\theta)_{train} \approx J(\theta)_{test}$
