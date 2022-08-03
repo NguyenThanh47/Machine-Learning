@@ -84,7 +84,7 @@
   - Tùy thuộc và dữ liệu mà chúng ta gặp trong một bài toán cụ thể, thay vì sử dụng những đặc trưng ban đầu thì đôi lúc định nghĩa những đặc trưng mới có thể giúp chúng ta có được một mô hình mới tốt hơn. Một ý tưởng liên quan mật thiết với ý tưởng này đó là hồi quy đa thức **`Polynomial regression`**.
   - Ví dụ khi dữ liệu bài toán không phân bố  theo một đường tuyến tính, việc sử dụng mô hình hồi quy phi tuyến sẽ cho kết quả đầu ra của mô hình tốt hơn khi sử dụng mô hình hồi quy tuyến tính.
 
-# **II. Các vấn đề hiện đại thuộc học có giám sát**
+# **III. Các vấn đề hiện đại thuộc học có giám sát**
 ## **1. Neural Network**
 - Phương pháp hồi quy logistic hoạt động tốt khi số lượng đặc trưng nhỏ, còn trong thực tế một bài toán ML sẽ có rất nhiều đặc trưng. Để có thể có được một hàm giả thuyết phân chia các mẫu hợp lý thì cần sử dụng rất nhiều đặc trưng phi tuyến, sử dụng hàm đa thức bậc cao. Nếu sử dụng hết các đặc trưng phi tuyến hoặc bậc của đa thức quá cao sẽ dẫn đến hiện tượng overfitting và tốn  nhiều chi phí tính toán
 - Neural network là một thuật toán đã được nghiên cứu từ lâu nhưng gần đây mới trở nên phổ biến bởi nó là một thuật toán cần chi phí tính toán lớn và chỉ có thể chạy tốt với những máy tính hiện đại ngày nay.
@@ -132,21 +132,21 @@
   ![selection](selection.png)
   
 
-# **III. Giải quyết các bài toán ML có giám sát**
+# **IV. Giải quyết các bài toán ML có giám sát**
 ## **1. Định hướng**
 - Để xây dựng được một mô hình tốt, ta cần chia dữ liệu làm 3 phần: tập huấn luyện, tập kiểm thử và tập kiểm tra. Các dữ liệu trong 3 tập này cần được chọn lựa ngẫu nhiên và dữ liệu trong tập huấn luyện là nhiều nhất.
 - Quy trình xây dựng như sau:
   - sử dụng dữ liệu trong tập train => tối thiểu hàm chi phí => lựa mô hình có giá trị hàm chi phí nhỏ nhất
   - sử dụng mô hình đã chọn trong tập train để đánh giá lỗi trên tập kiểm thử => lựa chọn mô hình có giá trị hàm chi phí nhỏ nhất
 - Chuẩn đoán bias và variance
-  - Khi bậc đa thức của mô hình nhỏ => $J(\theta)_{train}$ và $J(\theta)_{cv}$ đều lớn (underfit)
-  - Khi bậc đa thức của mô hình tăng dần => $J(\theta)_{train}$ và $J(\theta)_{cv}$ đều giảm dần
-  - Khi bậc đa thức lớn => $J(\theta)_{train}$ tiếp tục giảm còn $J(\theta)_{cv}$ tăng (overfit)
+  - Khi hệ số bậc của mô hình nhỏ => $J(\theta)_{train}$ và $J(\theta)_{cv}$ đều lớn (underfit)
+  - Khi hệ số bậc của mô hình tăng dần => $J(\theta)_{train}$ và $J(\theta)_{cv}$ đều giảm dần
+  - Khi hệ số bậc lớn => $J(\theta)_{train}$ tiếp tục giảm còn $J(\theta)_{cv}$ tăng (overfit)
   ![diagnos](diagnosing.png)
 - Hệ số regularization và bias/variance
   - Khi $\lambda$ nhỏ, mô hình có khả năng bị overfit => $J(\theta)_{train}$ nhỏ, còn $J(\theta)_{cv}$ lớn
   - Khi $\lambda$ tăng dần => $J(\theta)_{train}$ tăng, còn $J(\theta)_{cv}$ giảm
-  - Khi $\lambda$ nhỏ, mô hình có khả năng bị underfit => $J(\theta)_{train}$ và $J(\theta)_{cv}$ đều lớn
+  - Khi $\lambda$ lớn, mô hình có khả năng bị underfit => $J(\theta)_{train}$ và $J(\theta)_{cv}$ đều lớn
   ![regularization](regularization.png)
 - Sau khi tìm được mô hình và thấy lỗi trên tập test vẫn lớn thì có một vài phương án xử lý như sau:
   - Lấy thêm nhiều dữ liệu => sửa lỗi high variance
@@ -174,3 +174,7 @@
   - Hiệu năng của các thuật toán thường tăng khi tăng số lượng dữ liệu
   - Sử dụng một thuật toán học với nhiều đặc trưng sẽ làm cho mô hình tránh underfit => $J(\theta)_{train}$ sẽ nhỏ
   - Sử dụng tập train có lượng dữ liệu lớn sẽ tránh được overfit => $J(\theta)_{train} \approx J(\theta)_{test}$
+
+
+# **IV. Học không giám sát**
+
